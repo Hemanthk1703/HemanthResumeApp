@@ -4,10 +4,13 @@ import com.hemanth.HemanthResumeService.service.ResumeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -46,5 +49,17 @@ public class ResumeController {
     public Map<String, Object> getProfessionalExperience() {
         return resumeService.getProfessionalExperience();
     }
+
+    @Operation(summary = "Get Hemanth resume in PDF", description = "Downloads the Hemanth's Resume in the PDF format")
+    @GetMapping("/downloadResume")
+    public ResponseEntity<InputStreamResource> downloadResume() {
+        try {
+            return resumeService.getResume();
+        } catch (IOException e) {
+            // Handle the exception, you can log it or return an error response
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
 
 }
