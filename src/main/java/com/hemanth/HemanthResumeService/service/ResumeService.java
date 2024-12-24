@@ -1,7 +1,11 @@
 package com.hemanth.HemanthResumeService.service;
 
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -103,6 +107,18 @@ public class ResumeService {
                         "Impediment Resolution", "Assisted in resolving impediments and supporting the team’s productivity"
                 )
         );
+    }
+
+    public ResponseEntity<InputStreamResource> getResume() throws IOException {
+        // Load the resume PDF from resources
+        ClassPathResource pdfFile = new ClassPathResource("static/resume.pdf");
+
+        // Return the PDF file as a downloadable response
+        return ResponseEntity.ok()
+                .header("Content-Disposition", "attachment; filename=HemanthResume.pdf")
+                .contentType(org.springframework.http.MediaType.APPLICATION_PDF)
+                .contentLength(pdfFile.contentLength())
+                .body(new InputStreamResource(pdfFile.getInputStream()));
     }
 
 }
