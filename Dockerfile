@@ -8,6 +8,7 @@ WORKDIR /app
 
 #3.Add jar of this project folder
 # Copy the local .jar file to the container's app directory
+
 COPY target/HemanthResumeService-0.0.1-SNAPSHOT.jar app.jar
 
 
