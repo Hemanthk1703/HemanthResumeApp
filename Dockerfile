@@ -10,6 +10,7 @@ WORKDIR /app
 # Copy the local .jar file to the container's app directory
 COPY target/HemanthResumeService-0.0.1-SNAPSHOT.jar app.jar
 
+
 #2. Expose the port - Making port availeble outside the container
 # Expose the port the app will run on
 EXPOSE 8080
